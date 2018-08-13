@@ -15,12 +15,6 @@ Includes:
 
 **5. Others:** [ipywidgets](https://ipywidgets.readthedocs.io/en/stable/index.html), [h5py](http://www.h5py.org/)
 
-## Docker Hub
-
-You can directly pull the [built image from Docker Hub](https://hub.docker.com/r/jaimeps/rl-gym/) by running
-```
-docker pull jaimeps/rl-gym
-```
 
 ## Rendering on Jupyter notebook
 

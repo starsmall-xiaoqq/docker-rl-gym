@@ -1,13 +1,15 @@
-
 # Base
 FROM ubuntu:16.04
 
 ENV DEBIAN_FRONTEND noninteractive
+#ENV http_proxy http://your-proxy-server:port
+#ENV https_proxy http://your-proxy-sever:port
 
 # Ubuntu packages + Numpy
 RUN apt-get update \
      && apt-get install -y --no-install-recommends \
         apt-utils \
+        imagemagick \
         build-essential \
         g++  \
         git  \
@@ -30,7 +32,7 @@ RUN apt-get update \
         python3-tk \
         libopenblas-base  \
         libatlas-dev  \
-        cython3  \
+        cython  \
      && apt-get clean \
      && rm -rf /var/lib/apt/lists/*
 
@@ -53,10 +55,12 @@ RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
 ENV DEBIAN_FRONTEND teletype
 
+VOLUME ["/ds"]
+
+WORKDIR "/ds"
+
 # Jupyter notebook with virtual frame buffer for rendering
 CMD cd /ds \
     && xvfb-run -s "-screen 0 1400x900x24" \
     /usr/local/bin/jupyter notebook \
-    --port=8888 --ip=0.0.0.0 --allow-root 
-
-
+    --port=8888 --ip=0.0.0.0 --allow-root --no-browser --NotebookApp.token="your-password" 
